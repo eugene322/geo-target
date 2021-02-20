@@ -1,0 +1,5 @@
+fastapi==0.63.0
+# Update when https://github.com/getsentry/sentry-python/issues/947 is resolved
+uvicorn==0.13.3
+pydantic[email]==1.7.3
+requests==2.25.1

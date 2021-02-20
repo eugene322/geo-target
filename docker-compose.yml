@@ -1,0 +1,20 @@
+version: '3.7'
+
+services:
+  fastapi:
+    container_name: fastapi
+    build: ./
+    volumes:
+      - ./src:/src:rw
+      - ./.env:/src/core/.env
+    environment:
+      PROCESS: DEV_FASTAPI
+      test: "pytest -v --cov . --cov-report term-missing
+      --cov-fail-under=100 --flake8 --color=yes --mypy -n 1"
+      outdated: pip list --outdated --format=columns
+      bandit: bandit --exclude tests -r .
+      safety: safety check
+      mypy: mypy .
+      flake8: flake8 .
+    ports:
+      - 8000:8000
