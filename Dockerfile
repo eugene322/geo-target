@@ -1,4 +1,4 @@
-FROM docker-registry.choco.kz/chocofood/python:3.9.1-alpine3.12
+FROM python:3.9.1-alpine3.12
 
 ENV PYTHONUNBUFFERED=1 COLUMNS=200 \
     TZ=Asia/Almaty PIP_CONFIG_FILE=/src/pip.conf
