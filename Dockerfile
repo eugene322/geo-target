@@ -1,4 +1,4 @@
-FROM python:3.9.1-alpine3.12
+FROM python:3.9.1-slim
 
 ENV PYTHONUNBUFFERED=1 COLUMNS=200 \
     TZ=Asia/Almaty
@@ -7,14 +7,7 @@ ADD src/requirements.txt \
     ./src/dev_requirements.txt \
     /src/
 
-RUN \
-    sed -i "s/dl-cdn.alpinelinux.org/mirror.neolabs.kz/g" \
-    /etc/apk/repositories \
-    && apk update \
-    && apk --no-cache add bash \
-# Add build dependencies
-    && apk --no-cache add --virtual .build-deps \
-    gcc make musl-dev \
+RUN apt update \
 # Set timezone
     && ln -fs /usr/share/zoneinfo/Asia/Almaty /etc/localtime \
     && echo "Asia/Almaty" > /etc/timezone \
@@ -25,7 +18,7 @@ RUN \
     --no-cache-dir -Ur /src/requirements.txt \
     --no-cache-dir -Ur /src/dev_requirements.txt \
 # Remove build dependencies
-    && apk del .build-deps
+    && apt clean
 
 COPY src /src
 
