@@ -34,7 +34,7 @@ case "$PROCESS" in
     uvicorn core.main:app --reload --host 0.0.0.0 --port 8000
     ;;
 "FASTAPI")
-    uvicorn core.main:app --host 0.0.0.0 --port 8000 \
+    uvicorn core.main:app --host 0.0.0.0 --port "${PORT}" \
     --proxy-headers --workers 8 --limit-max-requests 2048
     # workers = (2*CPU)+1
     ;;
