@@ -1,15 +1,5 @@
 #!/bin/bash
 
-wait_for () {
-    for _ in `seq 0 100`; do
-        (echo > /dev/tcp/$1/$2) >/dev/null 2>&1
-        if [[ $? -eq 0 ]]; then
-            echo "$1:$2 accepts connections"
-            break
-        fi
-        sleep 1
-    done
-}
 populate_env_variables () {
   set -o allexport
   [[ -f core/.env ]] && source core/.env
@@ -30,7 +20,6 @@ case "$PROCESS" in
     --color=yes --mypy -n 1 -W error
     ;;
 "DEV_FASTAPI")
-    wait_for "${DB_HOST}" "${DB_PORT}"
     uvicorn core.main:app --reload --host 0.0.0.0 --port 8000
     ;;
 "FASTAPI")

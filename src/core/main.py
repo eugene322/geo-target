@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
 from common.views import item_router
+from logs.views import log_router
 
 app: FastAPI = FastAPI()
 app.add_middleware(
@@ -11,5 +12,8 @@ app.add_middleware(
 )
 app.include_router(
     prefix='/api', router=item_router,
+)
+app.include_router(
+    prefix='/api', router=log_router,
 )
 

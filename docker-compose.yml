@@ -1,16 +1,6 @@
 version: '3.7'
 
 services:
-  postgres:
-    container_name: postgres
-    image: postgres:13.2-alpine
-    environment:
-      POSTGRES_DB: db
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: pass
-    logging:
-      driver: none
-
   fastapi:
     container_name: fastapi
     build: ./
